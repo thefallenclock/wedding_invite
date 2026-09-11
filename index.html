@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" class="pre-open">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Placeholder Couple &mdash; Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<nav class="progress-nav" id="progress-nav">
+  <button data-target="landing" aria-label="Landing"></button>
+  <button data-target="names" aria-label="Names"></button>
+  <button data-target="haldi" aria-label="Haldi"></button>
+  <button data-target="sangeet" aria-label="Sangeet"></button>
+  <button data-target="wedding" aria-label="Wedding"></button>
+  <button data-target="closing" aria-label="Closing"></button>
+</nav>
+
+<div class="invite">
+
+<!-- 1. LANDING -->
+<section class="section" id="landing">
+  <div class="section-bg" style="background-image:url('assets/bg-landing.jpg')"></div>
+  <div class="hang-wrap"><img class="hang" src="assets/hang-landing.png" alt="" /></div>
+  <img class="peacock left" src="assets/peacock-1.png" alt="" />
+  <img class="peacock right" src="assets/peacock-2.png" alt="" />
+
+  <div class="envelope-wrap" id="envelope">
+    <img src="assets/envelope.png" alt="Tap to open invitation" />
+  </div>
+  <p class="tap-label">tap to open</p>
+
+  <div class="scroll-cue" id="scroll-cue">
+    <span></span>
+    scroll
+  </div>
+</section>
+
+<!-- 2. NAMES -->
+<section class="section" id="names">
+  <div class="section-bg" style="background-image:url('assets/bg-names.jpg')"></div>
+  <div class="hang-wrap"><img class="hang" src="assets/hang-names.png" alt="" /></div>
+  <div class="content">
+    <h2>Placeholder &amp; Placeholder</h2>
+    <p>Together with their families, request the pleasure of your company &mdash; full names and story to follow.</p>
+  </div>
+</section>
+
+<!-- 3. HALDI -->
+<section class="section event-section" id="haldi">
+  <div class="section-bg" style="background-image:url('assets/bg-haldi.jpg')"></div>
+  <div class="hang-wrap"><img class="hang" src="assets/hang-haldi.png" alt="" /></div>
+  <div class="content">
+    <div class="event-label">first, with turmeric and laughter</div>
+    <h2>Haldi</h2>
+    <div class="scratch-wrap">
+      <div class="reveal-card">
+        <p class="event-detail tbd">Date &amp; time &mdash; to be updated</p>
+        <p class="event-detail tbd">Venue &mdash; to be updated</p>
+      </div>
+      <canvas class="scratch-canvas"></canvas>
+      <div class="scratch-hint">scratch to reveal details</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. SANGEET -->
+<section class="section event-section dark" id="sangeet">
+  <div class="section-bg" style="background-image:url('assets/bg-sangeet.jpg')"></div>
+  <div class="hang-wrap"><img class="hang" src="assets/hang-sangeet.png" alt="" /></div>
+  <div class="content">
+    <div class="event-label">then, an evening of music</div>
+    <h2>Sangeet</h2>
+    <div class="scratch-wrap">
+      <div class="reveal-card">
+        <p class="event-detail tbd">Date &amp; time &mdash; to be updated</p>
+        <p class="event-detail tbd">Venue &mdash; to be updated</p>
+      </div>
+      <canvas class="scratch-canvas"></canvas>
+      <div class="scratch-hint">scratch to reveal details</div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. WEDDING -->
+<section class="section event-section dark" id="wedding">
+  <div class="section-bg" style="background-image:url('assets/bg-wedding.jpg')"></div>
+  <div class="hang-wrap"><img class="hang" src="assets/hang-wedding.png" alt="" /></div>
+  <div class="content">
+    <div class="event-label">and finally, the wedding</div>
+    <h2>Wedding</h2>
+    <div class="scratch-wrap">
+      <div class="reveal-card">
+        <p class="event-detail tbd">Date &amp; time &mdash; to be updated</p>
+        <p class="event-detail tbd">Venue &mdash; to be updated</p>
+      </div>
+      <canvas class="scratch-canvas"></canvas>
+      <div class="scratch-hint">scratch to reveal details</div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. CLOSING (static, reuses landing background, no hanging overlay) -->
+<section class="section" id="closing">
+  <div class="section-bg" style="background-image:url('assets/bg-landing.jpg')"></div>
+  <div class="content">
+    <h2>We can't wait to celebrate with you</h2>
+    <p>Find us here on the day</p>
+    <iframe class="map-frame" loading="lazy"
+      src="https://maps.google.com/maps?q=venue+to+be+updated&output=embed">
+    </iframe>
+    <p class="placeholder-note">Map will point to the real venue once confirmed.</p>
+  </div>
+</section>
+
+</div><!-- /.invite -->
+
+<script src="script.js"></script>
+</body>
+</html>
