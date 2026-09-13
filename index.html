@@ -60,11 +60,12 @@
 
   <!-- Right Side Progress Navigation Dots (Desktop) -->
   <nav class="progress-nav" id="progress-nav" aria-label="Invitation sections">
-    <button data-target="names"   aria-label="Family blessings and names section" data-name="Names"></button>
-    <button data-target="sangeet" aria-label="Sangeet ceremony section" data-name="Sangeet"></button>
-    <button data-target="haldi"   aria-label="Haldi ceremony section" data-name="Haldi"></button>
-    <button data-target="wedding" aria-label="Wedding pheras section" data-name="Wedding"></button>
-    <button data-target="rsvp"    aria-label="RSVP and venue location section" data-name="RSVP"></button>
+    <button data-target="names"       aria-label="Family blessings and names section" data-name="Names"></button>
+    <button data-target="sangeet"     aria-label="Sangeet ceremony section" data-name="Sangeet"></button>
+    <button data-target="haldi"       aria-label="Haldi ceremony section" data-name="Haldi"></button>
+    <button data-target="wedding"     aria-label="Wedding pheras section" data-name="Wedding"></button>
+    <button data-target="compliments" aria-label="Family RSVP and compliments section" data-name="RSVP"></button>
+    <button data-target="rsvp"        aria-label="RSVP and venue location section" data-name="Venue"></button>
   </nav>
 
   <div class="invite">
@@ -88,10 +89,10 @@
       </div>
     </section>
 
-    <!-- 2. NAMES / BLESSINGS -->
-    <section class="section" id="names" data-fade-target="bg" data-fade-rate="0.9">
+    <!-- 2. NAMES / BLESSINGS (No fade) -->
+    <section class="section" id="names" data-fade-target="none">
       <div class="slide-frame">
-        <div class="section-bg parallax-bg" style="background-image:url('assets/bg-names.jpg')"></div>
+        <div class="section-bg" style="background-image:url('assets/bg-names.jpg')"></div>
         <div class="hang-wrap"><img class="hang" src="assets/hang-names.png" alt="" /></div>
       </div>
     </section>
@@ -139,7 +140,17 @@
       </div>
     </section>
 
-    <!-- 6. RSVP & VENUE (Closing - Modern Minimal Grid) -->
+    <!-- 6. RSVP / WITH BEST COMPLIMENTS -->
+    <section class="section" id="compliments" data-fade-target="none">
+      <div class="slide-frame">
+        <div class="section-bg" style="background-image:url('assets/bg-landing.jpg')"></div>
+        <div class="family-rsvp-wrap">
+          <img src="assets/details-rsvp-family.png" alt="RSVP Rachit - Malika, Awaiting your presence Baby Rushika, With best compliments: Sonia Late Sunil Gupta, Rashim Vinay Khanna, Shilpa Deepak Mahajan" class="family-rsvp-img" />
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. RSVP & VENUE (Closing - Modern Minimal Grid) -->
     <section class="section" id="rsvp">
       <div class="slide-frame">
         <div class="section-bg parallax-bg" style="background-image:url('assets/bg-landing.jpg')"></div>
