@@ -1,49 +1,68 @@
 // ---------- Envelope tap-to-open ----------
+// Client spec: tap → screen zooms into the envelope → parents' names slide
+// appears. So the landing scene is a gate we pass through once, not a
+// section people scroll past on their own.
 const envelope = document.getElementById('envelope');
 const tapLabel = document.querySelector('.tap-label');
-const scrollCue = document.getElementById('scroll-cue');
+const landingSection = document.getElementById('landing');
 
 envelope.addEventListener('click', () => {
   if (envelope.classList.contains('opened')) return;
-  envelope.classList.add('opened');
+  envelope.classList.add('opened');       // triggers the envelope-zoom keyframes
   tapLabel.classList.add('hide');
-  document.documentElement.classList.remove('pre-open');
-  burstConfetti(envelope.getBoundingClientRect());
-  setTimeout(() => scrollCue.classList.add('show'), 500);
+  document.documentElement.classList.remove('pre-open'); // unblur bg + unlock scroll
+  landingSection.classList.add('exiting'); // whole gate screen dissolves with it
+  startMusic();
+
+  // once the zoom + fade have visually finished, remove slide 1 from the
+  // document entirely — not just scroll past it, actually gone — so there
+  // is nothing above the Names section to scroll back up into.
+  setTimeout(() => {
+    landingSection.style.display = 'none';
+  }, 950);
 }, { once: true });
 
 // ---------- Scroll-linked parallax + fade ----------
 // Every section's background, garland, and text move and fade at their own
 // speed as it passes through the viewport — background slowest (feels far
 // away), garland mid-speed, text fades fastest so it doesn't linger.
+// Individual sections can override how gradually their text fades via
+// data-fade-rate (lower = slower, more gradual reveal while scrolling).
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const sections = Array.from(document.querySelectorAll('.section')).map((el) => ({
+const sections = Array.from(document.querySelectorAll('.section:not(#landing)')).map((el) => ({
   el,
   bg: el.querySelector('.section-bg'),
   hang: el.querySelector('.hang-wrap'),
   content: el.querySelector('.content'),
+  fadeRate: parseFloat(el.dataset.fadeRate) || 1.6,
+  fadeTarget: el.dataset.fadeTarget || 'content', // 'bg' for sections whose text is baked into the artwork
 }));
 
 function updateParallax() {
   const vh = window.innerHeight;
   const center = vh / 2;
 
-  sections.forEach(({ el, bg, hang, content }) => {
+  sections.forEach(({ el, bg, hang, content, fadeRate, fadeTarget }) => {
     const rect = el.getBoundingClientRect();
     // -1 when section-top is fully below viewport top edge worth of travel,
     // 0 when section is centered, +1 when it has fully passed upward.
     const progress = (center - (rect.top + rect.height / 2)) / (vh / 2 + rect.height / 2);
     const clamped = Math.max(-1, Math.min(1, progress));
+    // only backgrounds explicitly marked .parallax-bg drift on scroll --
+    // event sections keep their background locked so the scratch-card
+    // rectangle never separates from the artwork underneath it
+    const bgMoves = bg && bg.classList.contains('parallax-bg');
 
     if (!reduceMotion) {
-      if (bg) bg.style.transform = `translateY(${clamped * -34}px)`;
+      if (bgMoves) bg.style.transform = `translateY(${clamped * -34}px)`;
       if (hang) hang.style.transform = `translateY(${clamped * 46}px)`;
     }
 
-    if (content) {
-      // fades out faster than it fades in: full opacity only near center
-      const fade = 1 - Math.min(1, Math.abs(clamped) * 1.6);
+    const fade = 1 - Math.min(1, Math.abs(clamped) * fadeRate);
+    if (fadeTarget === 'bg' && bg) {
+      bg.style.opacity = fade;
+    } else if (content) {
       content.style.opacity = fade;
       content.style.transform = `translateY(${clamped * 60}px)`;
     }
@@ -62,6 +81,10 @@ window.addEventListener('resize', onScroll);
 updateParallax();
 
 // ---------- Scratch-to-reveal cards ----------
+// Spec: the info card is visible faintly through a light (10% opacity) tint
+// while scratching. Once cleared, the tint disappears completely as one
+// piece, and a beat later — not simultaneously — the card "arrives" with
+// its own pop, confetti firing on that arrival, not on the scratching itself.
 function initScratchCard(root) {
   const canvas = root.querySelector('.scratch-canvas');
   const card = root.querySelector('.reveal-card');
@@ -78,12 +101,10 @@ function initScratchCard(root) {
 
   function paintCover() {
     ctx.globalCompositeOperation = 'source-over';
-    const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    grad.addColorStop(0, '#caa15c');
-    grad.addColorStop(1, '#8a5a2b');
-    ctx.fillStyle = grad;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'rgba(184, 134, 63, 0.1)'; // 10% opacity gold tint per spec
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.fillStyle = 'rgba(90, 58, 26, 0.55)';
     ctx.font = '600 15px Jost, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('scratch to reveal', canvas.width / 2, canvas.height / 2);
@@ -113,12 +134,13 @@ function initScratchCard(root) {
     const sampled = Math.ceil(total / 12);
     if (cleared / sampled > 0.45) {
       done = true;
-      canvas.classList.add('done');
-      canvas.style.transition = 'opacity 0.5s ease';
-      canvas.style.opacity = '0';
-      card.classList.add('show');
       hint.style.display = 'none';
-      burstConfetti(root.getBoundingClientRect());
+      canvas.classList.add('done'); // tint fades out whole (0.4s, see CSS)
+      // wait for the tint to be fully gone, then let the card "arrive"
+      setTimeout(() => {
+        card.classList.add('revealed');
+        burstConfetti(root.getBoundingClientRect());
+      }, 400);
     }
   }
 
@@ -145,6 +167,31 @@ function initScratchCard(root) {
 }
 
 document.querySelectorAll('.scratch-wrap').forEach(initScratchCard);
+
+// ---------- Background music ----------
+// Spec: same ambient track as the reference site. We have no way to lift
+// audio off someone else's site (copyright, plus it's just not fetchable
+// the way the PDF/PNGs were) — so this is wired and ready to go the moment
+// you drop a licensed mp3 at assets/bg-music.mp3. Starts on the envelope
+// tap, which conveniently is also the user gesture browsers require before
+// they'll allow audio to play at all.
+const bgMusic = document.getElementById('bg-music');
+const muteBtn = document.getElementById('mute-toggle');
+let musicStarted = false;
+
+function startMusic() {
+  if (musicStarted || !bgMusic) return;
+  musicStarted = true;
+  bgMusic.volume = 0.55;
+  bgMusic.play().catch(() => { /* no file yet, or browser blocked it — fail quietly */ });
+}
+
+if (muteBtn) {
+  muteBtn.addEventListener('click', () => {
+    bgMusic.muted = !bgMusic.muted;
+    muteBtn.textContent = bgMusic.muted ? '\u{1F507}' : '\u{1F50A}';
+  });
+}
 
 // ---------- Lightweight confetti burst ----------
 // Canvas is pinned to the same width/position as the invite card (not the
