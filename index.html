@@ -1,112 +1,205 @@
 <!DOCTYPE html>
 <html lang="en" class="pre-open">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Rahul &amp; Vibhuti &mdash; Wedding Invitation</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Rahul &amp; Vibhuti &mdash; Royal Wedding Invitation</title>
+  <meta name="description" content="You are cordially invited to celebrate the holy wedding of Rahul &amp; Vibhuti. 21st &amp; 22nd October 2026." />
+  
+  <!-- Favicon: Royal Groom and Bride Icon -->
+  <link rel="icon" type="image/jpeg" href="assets/favicon.jpg" />
+  <link rel="apple-touch-icon" href="assets/favicon.jpg" />
+
+  <!-- Preload critical landing assets -->
+  <link rel="preload" href="assets/bg-landing.jpg" as="image" />
+  <link rel="preload" href="assets/envelope.png" as="image" />
+
+  <!-- Google Fonts: Luxury Editorial Serif & Clean Geometric Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<canvas id="confetti-canvas"></canvas>
+  <!-- Celebratory Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
 
-<audio id="bg-music" src="assets/bg-music.mp3" loop preload="none"></audio>
-<button id="mute-toggle" class="mute-btn" aria-label="Toggle music">&#128266;</button>
+  <!-- Modern Interactive Toast Notification -->
+  <div id="toast" class="modern-toast" role="status" aria-live="polite"></div>
 
-<nav class="progress-nav" id="progress-nav">
-  <button data-target="names" aria-label="Names"></button>
-  <button data-target="haldi" aria-label="Haldi"></button>
-  <button data-target="sangeet" aria-label="Sangeet"></button>
-  <button data-target="wedding" aria-label="Wedding"></button>
-  <button data-target="rsvp" aria-label="RSVP"></button>
-</nav>
+  <!-- Background Music Audio & Minimalist Luxury Pill -->
+  <audio id="bg-music" src="assets/Ekadantaya%20Vakratundaya%20Instrumental%20(1).mp3" loop autoplay playsinline preload="auto">
+    <source src="assets/Ekadantaya%20Vakratundaya%20Instrumental%20(1).mp3" type="audio/mpeg" />
+  </audio>
+  <button id="mute-toggle" class="mute-btn" aria-label="Toggle background music">
+    <span class="audio-bars" aria-hidden="true">
+      <span class="bar bar-1"></span>
+      <span class="bar bar-2"></span>
+      <span class="bar bar-3"></span>
+    </span>
+    <span class="audio-tooltip">Music</span>
+  </button>
 
-<div class="invite">
+  <!-- Right Side Progress Navigation Dots (Desktop) -->
+  <nav class="progress-nav" id="progress-nav" aria-label="Invitation sections">
+    <button data-target="names"   aria-label="Family blessings and names section" data-name="Names"></button>
+    <button data-target="haldi"   aria-label="Haldi ceremony section" data-name="Haldi"></button>
+    <button data-target="sangeet" aria-label="Sangeet ceremony section" data-name="Sangeet"></button>
+    <button data-target="wedding" aria-label="Wedding pheras section" data-name="Wedding"></button>
+    <button data-target="rsvp"    aria-label="RSVP and venue location section" data-name="RSVP"></button>
+  </nav>
 
-<!-- 1. LANDING -->
-<section class="section" id="landing">
-  <div class="slide-frame">
-    <div class="section-bg" style="background-image:url('assets/bg-landing.jpg')"></div>
-    <div class="hang-wrap"><img class="hang" src="assets/hang-landing.png" alt="" /></div>
-    <img class="peacock left" src="assets/peacock-1.png" alt="" />
-    <img class="peacock right" src="assets/peacock-2.png" alt="" />
+  <div class="invite">
 
-    <div class="envelope-wrap" id="envelope">
-      <img src="assets/envelope.png" alt="Tap to open invitation" />
-    </div>
-    <p class="tap-label">tap to open</p>
-  </div>
-</section>
+    <!-- 1. LANDING GATE -->
+    <section class="section" id="landing">
+      <div class="slide-frame">
+        <div class="section-bg" style="background-image:url('assets/bg-landing.jpg')"></div>
+        <div class="hang-wrap"><img class="hang" src="assets/hang-landing.png" alt="" /></div>
+        <img class="peacock left"  src="assets/peacock-1.png" alt="" />
+        <img class="peacock right" src="assets/peacock-2.png" alt="" />
 
-<!-- 2. NAMES: full invitation text is baked into the artwork itself, so
-     we fade the whole picture slowly rather than a separate text layer -->
-<section class="section" id="names" data-fade-target="bg" data-fade-rate="0.9">
-  <div class="slide-frame">
-    <div class="section-bg parallax-bg" style="background-image:url('assets/bg-names.jpg')"></div>
-    <div class="hang-wrap"><img class="hang" src="assets/hang-names.png" alt="" /></div>
-  </div>
-</section>
+        <!-- Tap or press Enter to open invitation -->
+        <div class="envelope-wrap" id="envelope" tabindex="0" role="button" aria-label="Open wedding invitation">
+          <img src="assets/envelope.png" alt="Tap to open invitation" />
+          <div class="wax-seal-glow" aria-hidden="true"></div>
+        </div>
+        <div class="tap-label">
+          <span>✨ Tap to Unveil Invitation ✨</span>
+        </div>
+      </div>
+    </section>
 
-<!-- 3. HALDI -->
-<section class="section event-section" id="haldi">
-  <div class="slide-frame">
-    <div class="section-bg" style="background-image:url('assets/bg-haldi.jpg')"></div>
-    <div class="hang-wrap"><img class="hang" src="assets/hang-haldi.png" alt="" /></div>
-    <div class="scratch-wrap">
-      <div class="reveal-card"><img src="assets/details-haldi.png" alt="Haldi date, time and venue" /></div>
-      <canvas class="scratch-canvas"></canvas>
-      <div class="scratch-hint">scratch to reveal details</div>
-    </div>
-  </div>
-</section>
+    <!-- 2. NAMES / BLESSINGS -->
+    <section class="section" id="names" data-fade-target="bg" data-fade-rate="0.9">
+      <div class="slide-frame">
+        <div class="section-bg parallax-bg" style="background-image:url('assets/bg-names.jpg')"></div>
+        <div class="hang-wrap"><img class="hang" src="assets/hang-names.png" alt="" /></div>
+      </div>
+    </section>
 
-<!-- 4. SANGEET -->
-<section class="section event-section" id="sangeet">
-  <div class="slide-frame">
-    <div class="section-bg" style="background-image:url('assets/bg-sangeet.jpg')"></div>
-    <div class="hang-wrap"><img class="hang" src="assets/hang-sangeet.png" alt="" /></div>
-    <div class="scratch-wrap">
-      <div class="reveal-card"><img src="assets/details-sangeet.png" alt="Sangeet date, time and venue" /></div>
-      <canvas class="scratch-canvas"></canvas>
-      <div class="scratch-hint">scratch to reveal details</div>
-    </div>
-  </div>
-</section>
+    <!-- 3. HALDI -->
+    <section class="section event-section" id="haldi">
+      <div class="slide-frame">
+        <div class="section-bg" style="background-image:url('assets/bg-haldi.jpg')"></div>
+        <div class="hang-wrap"><img class="hang" src="assets/hang-haldi.png" alt="" /></div>
+        <div class="scratch-wrap">
+          <div class="reveal-card"><img src="assets/details-haldi.png" alt="Haldi date, time and venue" /></div>
+          <canvas class="scratch-canvas"></canvas>
+          <div class="scratch-hint">scratch to reveal details</div>
+        </div>
+        <!-- Accessible fallback -->
+        <button class="scratch-reveal-btn" aria-label="Reveal Haldi details without scratching">✨ Reveal Details</button>
+      </div>
+    </section>
 
-<!-- 5. WEDDING -->
-<section class="section event-section" id="wedding">
-  <div class="slide-frame">
-    <div class="section-bg" style="background-image:url('assets/bg-wedding.jpg')"></div>
-    <div class="hang-wrap"><img class="hang" src="assets/hang-wedding.png" alt="" /></div>
-    <div class="scratch-wrap">
-      <div class="reveal-card"><img src="assets/details-wedding.png" alt="Wedding timings" /></div>
-      <canvas class="scratch-canvas"></canvas>
-      <div class="scratch-hint">scratch to reveal details</div>
-    </div>
-  </div>
-</section>
+    <!-- 4. SANGEET -->
+    <section class="section event-section" id="sangeet">
+      <div class="slide-frame">
+        <div class="section-bg" style="background-image:url('assets/bg-sangeet.jpg')"></div>
+        <div class="hang-wrap"><img class="hang" src="assets/hang-sangeet.png" alt="" /></div>
+        <div class="scratch-wrap">
+          <div class="reveal-card"><img src="assets/details-sangeet.png" alt="Sangeet date, time and venue" /></div>
+          <canvas class="scratch-canvas"></canvas>
+          <div class="scratch-hint">scratch to reveal details</div>
+        </div>
+        <button class="scratch-reveal-btn" aria-label="Reveal Sangeet details without scratching">✨ Reveal Details</button>
+      </div>
+    </section>
 
-<!-- 6. RSVP (closing) -->
-<section class="section" id="rsvp">
-  <div class="slide-frame">
-    <div class="section-bg parallax-bg" style="background-image:url('assets/bg-landing.jpg')"></div>
-    <div class="hang-wrap"><img class="hang" src="assets/hang-landing.png" alt="" /></div>
-    <div class="content">
-      <h2>Awaiting your presence</h2>
-      <div class="rsvp-names">Rahul &amp; Vibhuti</div>
-      <p>22nd October, 2026</p>
-      <iframe class="map-frame" loading="lazy"
-        src="https://maps.google.com/maps?q=Courtyard+by+Marriott+Agra&output=embed">
-      </iframe>
-      <p class="placeholder-note">Map is pinned to the Haldi venue for now &mdash; confirm the main wedding-day venue and we'll update this.</p>
-    </div>
-  </div>
-</section>
+    <!-- 5. WEDDING -->
+    <section class="section event-section" id="wedding">
+      <div class="slide-frame">
+        <div class="section-bg" style="background-image:url('assets/bg-wedding.jpg')"></div>
+        <div class="hang-wrap"><img class="hang" src="assets/hang-wedding.png" alt="" /></div>
+        <div class="scratch-wrap">
+          <div class="reveal-card"><img src="assets/details-wedding.png" alt="Wedding date, time and venue" /></div>
+          <canvas class="scratch-canvas"></canvas>
+          <div class="scratch-hint">scratch to reveal details</div>
+        </div>
+        <button class="scratch-reveal-btn" aria-label="Reveal Wedding details without scratching">✨ Reveal Details</button>
+      </div>
+    </section>
 
-</div><!-- /.invite -->
+    <!-- 6. RSVP & VENUE (Closing - Modern Minimal Grid) -->
+    <section class="section" id="rsvp">
+      <div class="slide-frame">
+        <div class="section-bg parallax-bg" style="background-image:url('assets/bg-landing.jpg')"></div>
+        <div class="hang-wrap"><img class="hang" src="assets/hang-landing.png" alt="" /></div>
+        
+        <div class="content rsvp-content">
+          <header class="rsvp-header">
+            <p class="rsvp-shloka">|| श्री गणेशाय नमः ||</p>
+            <h2 class="rsvp-eyebrow">Awaiting Your Gracious Presence</h2>
+            <div class="rsvp-names">Rahul &amp; Vibhuti</div>
+            <div class="rsvp-date-badge">
+              <span class="badge-ornament" aria-hidden="true">✦</span>
+              <span class="badge-date">Thursday, 22nd October 2026</span>
+              <span class="badge-ornament" aria-hidden="true">✦</span>
+            </div>
+          </header>
 
-<script src="script.js"></script>
+          <!-- Advanced CSS Grid for Venue & Location -->
+          <div class="rsvp-grid">
+            <!-- Venue & Timings Card -->
+            <div class="rsvp-card venue-details-card">
+              <div class="card-pill">Wedding Venue &amp; Schedule</div>
+              <h3 class="venue-title">Courtyard by Marriott</h3>
+              <p class="venue-location">Fatehabad Road, Tajganj, Agra</p>
+              
+              <div class="timings-grid">
+                <div class="timing-block">
+                  <span class="time-label">Baraat</span>
+                  <strong class="time-val">7:00 PM</strong>
+                </div>
+                <div class="timing-sep" aria-hidden="true"></div>
+                <div class="timing-block">
+                  <span class="time-label">Varmala</span>
+                  <strong class="time-val">8:30 PM</strong>
+                </div>
+                <div class="timing-sep" aria-hidden="true"></div>
+                <div class="timing-block">
+                  <span class="time-label">Pheras</span>
+                  <strong class="time-val">Midnight</strong>
+                </div>
+              </div>
+
+              <div class="card-actions">
+                <a href="https://maps.google.com/maps?q=Courtyard+by+Marriott+Agra" target="_blank" rel="noopener noreferrer" class="action-btn action-map-btn" aria-label="Open Courtyard by Marriott in Google Maps">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                  <span>Open Maps</span>
+                </a>
+                <button type="button" class="action-btn action-copy-btn" id="btnCopyAddress" aria-label="Copy venue address to clipboard">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span id="copyBtnLabel">Copy Address</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Framed Minimal Map Window -->
+            <div class="rsvp-card map-frame-card">
+              <div class="map-tag">
+                <span class="tag-pulse" aria-hidden="true"></span>
+                <span>Courtyard Agra</span>
+              </div>
+              <iframe class="map-iframe-modern" loading="lazy" title="Courtyard by Marriott Agra Google Maps Location"
+                src="https://maps.google.com/maps?q=Courtyard+by+Marriott+Agra&t=&z=15&ie=UTF8&iwloc=&output=embed">
+              </iframe>
+            </div>
+          </div>
+
+          <footer class="rsvp-signoff">
+            <p class="signoff-heading">With Love &amp; Warm Regards</p>
+            <p class="signoff-family">Mahajan &amp; Gupta Families</p>
+          </footer>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.invite -->
+
+  <script src="script.js"></script>
 </body>
 </html>
