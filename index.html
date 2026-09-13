@@ -10,6 +10,12 @@
   <link rel="icon" type="image/jpeg" href="assets/favicon.jpg" />
   <link rel="apple-touch-icon" href="assets/favicon.jpg" />
 
+  <!-- Mobile Fullscreen & Web App Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#3a2418" />
+
   <!-- Preload critical landing assets -->
   <link rel="preload" href="assets/bg-landing.jpg" as="image" />
   <link rel="preload" href="assets/envelope.png" as="image" />
@@ -28,6 +34,16 @@
 
   <!-- Modern Interactive Toast Notification -->
   <div id="toast" class="modern-toast" role="status" aria-live="polite"></div>
+
+  <!-- Fullscreen Toggle Button (Top Right) -->
+  <button id="fullscreen-toggle" class="fullscreen-btn" aria-label="Toggle full screen">
+    <svg class="fs-icon fs-icon-expand" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+    </svg>
+    <svg class="fs-icon fs-icon-compress" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="display:none;">
+      <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
+    </svg>
+  </button>
 
   <!-- Background Music Audio & Minimalist Luxury Pill -->
   <audio id="bg-music" src="assets/Ekadantaya%20Vakratundaya%20Instrumental%20(1).mp3" loop autoplay playsinline preload="auto">
@@ -127,7 +143,7 @@
     <section class="section" id="rsvp">
       <div class="slide-frame">
         <div class="section-bg parallax-bg" style="background-image:url('assets/bg-landing.jpg')"></div>
-        <div class="hang-wrap"><img class="hang" src="assets/hang-landing.png" alt="" /></div>
+        <div class="hang-wrap"><img class="hang" src="assets/hang-rsvp.png" alt="" /></div>
         
         <div class="content rsvp-content">
           <header class="rsvp-header">
