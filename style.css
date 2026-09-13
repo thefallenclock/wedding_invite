@@ -74,41 +74,46 @@ h1, h2, h3, .display {
 
 .invite {
   position: relative;
-  max-width: var(--invite-w);
+  max-width: 540px;
   margin: 0 auto;
   background: var(--cream);
+  padding: 0;
 }
 
 @media (min-width: 720px) {
   .invite {
-    margin: 3.5vh auto;
+    margin: 0 auto;
     box-shadow: 0 30px 90px rgba(58, 36, 24, 0.28);
   }
 }
 
 .section {
   position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#landing {
   min-height: 100vh;
   min-height: var(--app-height);
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  padding: 2vh 0;
 }
 
 /* Every section's artwork lives in a box locked to the source art's own
-   1080:1920 aspect ratio. Scaled to fit perfectly in viewport height on
-   desktop and laptops, and fill phone displays edge-to-edge. */
+   1080:1920 aspect ratio. Slides touch with 0px gap between them. */
 .slide-frame {
   position: relative;
-  width: min(100%, calc(var(--app-height) * 0.94 * 1080 / 1920));
+  width: 100%;
   max-width: 540px;
   aspect-ratio: 1080 / 1920;
   margin: 0 auto;
   overflow: hidden;
   background: var(--cream);
+  display: block;
 }
 
 .section-bg {
@@ -134,7 +139,7 @@ h1, h2, h3, .display {
 
 .hang-wrap {
   position: absolute;
-  top: 0;
+  top: -6.5%;
   left: 0;
   width: 100%;
   z-index: 2;
@@ -145,12 +150,23 @@ h1, h2, h3, .display {
 .hang {
   display: block;
   width: 100%;
-  animation: sway 4.5s ease-in-out infinite;
+  transform-origin: top center;
+  animation: sway 5s ease-in-out infinite;
 }
 
 @keyframes sway {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(14px); }
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(1.5px) rotate(0.35deg);
+  }
+  50% {
+    transform: translateY(3px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(1.5px) rotate(-0.35deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -356,6 +372,38 @@ h1, h2, h3, .display {
 
 .scratch-hint {
   display: none;
+}
+
+#names .section-bg {
+  opacity: 1 !important;
+  filter: saturate(0.85) sepia(0.12) brightness(1.03) contrast(0.97) !important;
+}
+
+/* ---------- Family RSVP / With Best Compliments Slide ---------- */
+#compliments .slide-frame {
+  position: relative;
+  overflow: hidden;
+}
+
+.family-rsvp-wrap {
+  position: absolute;
+  top: 11.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76%;
+  max-width: 410px;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.family-rsvp-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(58, 36, 24, 0.12));
 }
 
 /* ---------- RSVP & Venue (Shifted below florals, Advanced CSS Grid) ---------- */
@@ -1002,7 +1050,8 @@ body.music-playing .audio-bars .bar-3 {
 /* Short viewports (mobile browsers with dynamic URL bars, laptops <= 700px) */
 @media (max-height: 700px) {
   .section {
-    padding: 1vh 0;
+    padding: 0;
+    margin: 0;
   }
 
   #rsvp .rsvp-content {
@@ -1032,7 +1081,8 @@ body.music-playing .audio-bars .bar-3 {
   .section {
     min-height: 100vh;
     height: auto;
-    padding: 24px 0;
+    padding: 0;
+    margin: 0;
     overflow-y: visible;
   }
 
