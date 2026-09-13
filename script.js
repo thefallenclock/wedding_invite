@@ -56,12 +56,8 @@ function updateParallax() {
     const bgMoves  = bg && bg.classList.contains('parallax-bg');
 
     if (!reduceMotion) {
-      // Bumped noticeably higher than the first pass — this should read
-      // clearly as the slide scrolls, not just on close inspection.
-      // Buffer sized in CSS (.section-bg.parallax-bg: 116%/-8% inset)
-      // to comfortably cover this amplitude with room to spare.
-      if (bgMoves) bg.style.transform   = `translateY(${clamped * -42}px)`;
-      if (hang)    hang.style.transform = `translateY(${clamped *  24}px)`;
+      if (bgMoves) bg.style.transform   = `translateY(${clamped * -18}px)`;
+      if (hang)    hang.style.transform = `translateY(${clamped *  3}px)`;
     }
 
     const fade = 1 - Math.min(1, Math.abs(clamped) * fadeRate);
@@ -516,15 +512,15 @@ function showToast(msg) {
 
 if (btnCopyAddress) {
   btnCopyAddress.addEventListener('click', () => {
-    const venueAddress = 'Courtyard by Marriott, Fatehabad Road, Tajganj, Agra, Uttar Pradesh 282001 (Haldi venue — wedding venue TBC)';
+    const venueAddress = 'Courtyard by Marriott, Fatehabad Road, Tajganj, Agra, Uttar Pradesh 282001';
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(venueAddress).then(() => {
-        showToast('✓ Haldi venue address copied!');
+        showToast('✓ Venue address copied to clipboard!');
       }).catch(() => {
-        showToast('📍 Courtyard by Marriott, Agra (Haldi venue)');
+        showToast('📍 Courtyard by Marriott, Agra');
       });
     } else {
-      showToast('📍 Courtyard by Marriott, Agra (Haldi venue)');
+      showToast('📍 Courtyard by Marriott, Agra');
     }
   });
 }
@@ -660,4 +656,22 @@ updateNav();
       frame.appendChild(p);
     }
   });
+}());
+
+// ---------- Mobile View / Windows Desktop Device Detection ----------
+(function () {
+  function checkDeviceMode() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                     window.innerWidth < 1024 ||
+                     window.innerHeight > window.innerWidth;
+    if (isMobile) {
+      document.documentElement.classList.add('is-mobile');
+    } else {
+      document.documentElement.classList.remove('is-mobile');
+    }
+  }
+
+  window.addEventListener('resize', checkDeviceMode, { passive: true });
+  window.addEventListener('orientationchange', checkDeviceMode, { passive: true });
+  checkDeviceMode();
 }());
