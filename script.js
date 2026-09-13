@@ -13,6 +13,7 @@ function openEnvelope() {
   document.documentElement.classList.remove('pre-open'); // unblur bg + unlock scroll
   landingSection.classList.add('exiting');               // whole gate screen dissolves
   startMusic();
+  enterFullScreen();
 
   // Once the zoom + fade have visually finished, remove slide 1 from the
   // document entirely so there is nothing above the Names section to scroll back into.
@@ -310,6 +311,98 @@ function syncViewportHeight() {
 window.addEventListener('resize', syncViewportHeight, { passive: true });
 window.addEventListener('orientationchange', syncViewportHeight, { passive: true });
 syncViewportHeight();
+
+// ---------- Fullscreen API Management (Cross-device: Windows, Mac, Phone) ----------
+function enterFullScreen() {
+  if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+    return;
+  }
+  const docEl = document.documentElement;
+  const requestFn = docEl.requestFullscreen || 
+                    docEl.webkitRequestFullscreen || 
+                    docEl.webkitRequestFullScreen || 
+                    docEl.mozRequestFullScreen || 
+                    docEl.msRequestFullscreen;
+  if (requestFn) {
+    try {
+      const p = requestFn.call(docEl);
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {});
+      }
+    } catch (err) {}
+  }
+}
+
+function exitFullScreen() {
+  if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+    return;
+  }
+  const exitFn = document.exitFullscreen || 
+                 document.webkitExitFullscreen || 
+                 document.mozCancelFullScreen || 
+                 document.msExitFullscreen;
+  if (exitFn) {
+    try {
+      const p = exitFn.call(document);
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {});
+      }
+    } catch (err) {}
+  }
+}
+
+function toggleFullScreen() {
+  const isFs = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+  if (isFs) {
+    exitFullScreen();
+  } else {
+    enterFullScreen();
+  }
+}
+
+// 1. Attempt fullscreen on load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', enterFullScreen);
+} else {
+  enterFullScreen();
+}
+window.addEventListener('load', enterFullScreen);
+
+// 2. Browser safeguard: any first touch, pointerdown, click or scroll triggers fullscreen
+const triggerFullscreenEvents = ['click', 'touchstart', 'pointerdown'];
+function triggerFullscreenOnFirstAction() {
+  enterFullScreen();
+  triggerFullscreenEvents.forEach((evt) => {
+    window.removeEventListener(evt, triggerFullscreenOnFirstAction, { passive: true });
+    document.removeEventListener(evt, triggerFullscreenOnFirstAction, { passive: true });
+  });
+}
+triggerFullscreenEvents.forEach((evt) => {
+  window.addEventListener(evt, triggerFullscreenOnFirstAction, { once: true, passive: true });
+  document.addEventListener(evt, triggerFullscreenOnFirstAction, { once: true, passive: true });
+});
+
+// 3. Fullscreen toggle button wiring & icon state update
+const fullscreenBtn = document.getElementById('fullscreen-toggle');
+if (fullscreenBtn) {
+  fullscreenBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleFullScreen();
+  });
+}
+
+function updateFullscreenIcon() {
+  const isFs = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+  const iconExpand = document.querySelector('.fs-icon-expand');
+  const iconCompress = document.querySelector('.fs-icon-compress');
+  if (iconExpand && iconCompress) {
+    iconExpand.style.display = isFs ? 'none' : 'block';
+    iconCompress.style.display = isFs ? 'block' : 'none';
+  }
+}
+['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach((evt) => {
+  document.addEventListener(evt, updateFullscreenIcon);
+});
 
 // ---------- Background Music: Ekadantaya Vakratundaya Instrumental ONLY ----------
 const bgMusic    = document.getElementById('bg-music');
