@@ -139,7 +139,7 @@ h1, h2, h3, .display {
 
 .hang-wrap {
   position: absolute;
-  top: -6.5%;
+  top: -.5%;
   left: 0;
   width: 100%;
   z-index: 2;
