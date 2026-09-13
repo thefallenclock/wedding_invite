@@ -56,12 +56,18 @@ function updateParallax() {
     const bgMoves  = bg && bg.classList.contains('parallax-bg');
 
     if (!reduceMotion) {
-      if (bgMoves) bg.style.transform   = `translateY(${clamped * -34}px)`;
-      if (hang)    hang.style.transform = `translateY(${clamped *  46}px)`;
+      if (bgMoves) bg.style.transform   = `translateY(${clamped * -18}px)`;
+      if (hang)    hang.style.transform = `translateY(${clamped *  3}px)`;
     }
 
     const fade = 1 - Math.min(1, Math.abs(clamped) * fadeRate);
-    if (fadeTarget === 'bg' && bg) {
+    if (fadeTarget === 'none') {
+      if (bg) bg.style.opacity = 1;
+      if (content) {
+        content.style.opacity = 1;
+        content.style.transform = 'none';
+      }
+    } else if (fadeTarget === 'bg' && bg) {
       bg.style.opacity = fade;
     } else if (content) {
       content.style.opacity   = fade;
@@ -621,9 +627,10 @@ updateNav();
   // Inject into every event section and the RSVP closing slide
   const targets = [
     '#names .slide-frame',
-    '#haldi .slide-frame',
     '#sangeet .slide-frame',
+    '#haldi .slide-frame',
     '#wedding .slide-frame',
+    '#compliments .slide-frame',
     '#rsvp .slide-frame',
   ];
 
