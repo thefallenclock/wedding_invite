@@ -536,6 +536,15 @@ h1, h2, h3, .display {
   margin: 1px 0 clamp(3px, 0.8vh, 6px);
 }
 
+.placeholder-note {
+  font-family: "Jost", sans-serif;
+  font-size: clamp(0.56rem, 1.5vw, 0.64rem);
+  font-style: italic;
+  color: #6B5142;
+  opacity: 0.75;
+  margin: 6px 0 0;
+}
+
 .timings-grid {
   display: flex;
   align-items: center;
