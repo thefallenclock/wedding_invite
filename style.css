@@ -30,7 +30,7 @@ html.pre-open body {
 }
 
 html.pre-open #landing .section-bg {
-  filter: blur(22px) saturate(0.7) brightness(0.88);
+  filter: saturate(0.95) brightness(1.02);
 }
 
 html { 
@@ -176,25 +176,45 @@ h1, h2, h3, .display {
 .peacock {
   position: absolute;
   bottom: 5%;
-  width: 20%;
+  width: 22%;
+  max-width: 115px;
   z-index: 2;
+  filter: drop-shadow(0 8px 18px rgba(58, 36, 24, 0.28));
+  will-change: transform;
 }
 .peacock.left {
-  left: 4%;
-  animation: peacock-left-approach 6s ease-in-out infinite;
+  left: 2%;
+  /* peacock-1.png naturally faces right towards center */
+  animation: peacock-left-approach 2s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
 }
 .peacock.right {
-  right: 4%;
-  animation: peacock-right-approach 6s ease-in-out infinite;
+  right: 2%;
+  /* peacock-2.png naturally faces left towards center - no flip needed */
+  animation: peacock-right-approach 2s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
 }
 
 @keyframes peacock-left-approach {
-  0%, 100% { transform: translateX(0); }
-  50%       { transform: translateX(10px); }
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(15px) translateY(-3.5px);
+  }
+  100% {
+    transform: translateX(32px) translateY(0);
+  }
 }
+
 @keyframes peacock-right-approach {
-  0%, 100% { transform: scaleX(-1) translateX(0); }
-  50%       { transform: scaleX(-1) translateX(10px); }
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(-15px) translateY(-3.5px);
+  }
+  100% {
+    transform: translateX(-32px) translateY(0);
+  }
 }
 
 .envelope-wrap {
@@ -622,7 +642,7 @@ h1, h2, h3, .display {
   margin: 1px 0 0;
 }
 
-/* ---------- Fixed UI Chrome (Audio Pill & Nav) ---------- */
+/* ---------- Fixed UI Chrome (Audio Pill, Fullscreen & Nav) ---------- */
 
 #confetti-canvas {
   position: fixed;
@@ -630,6 +650,45 @@ h1, h2, h3, .display {
   left: 0;
   z-index: 50;
   pointer-events: none;
+}
+
+/* Minimal Luxury Fullscreen Toggle Button */
+.fullscreen-btn {
+  position: fixed;
+  top: max(18px, calc(14px + var(--sat)));
+  right: max(18px, calc(14px + var(--sar)));
+  z-index: 55;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(184, 134, 63, 0.45);
+  background: rgba(254, 250, 242, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #4A0E1A;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(58, 36, 24, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  padding: 0;
+}
+
+.fullscreen-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: #B8863F;
+  box-shadow: 0 6px 20px rgba(184, 134, 63, 0.24);
+  background: #FFFDF9;
+}
+
+.fullscreen-btn:active {
+  transform: scale(0.96);
+}
+
+.fullscreen-btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
 }
 
 /* Minimal Luxury Audio Toggle Pill */
