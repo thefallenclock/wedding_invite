@@ -2,9 +2,12 @@
   --ink: #3a2418;
   --ink-soft: #6b5142;
   --cream: #f6ecd9;
-  --page-bg: #e7dcc4;
+  --page-bg: #2B1A10;
+  --panel-bg-1: #1e1108;
+  --panel-bg-2: #2d1a0e;
   --gold: #b8863f;
   --gold-light: #f0d9a8;
+  --gold-dim: rgba(184,134,63,0.18);
   --invite-w: 560px;
   --app-height: 100vh;
   --sat: env(safe-area-inset-top, 0px);
@@ -53,6 +56,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-overflow-scrolling: touch;
+  min-height: 100vh;
 }
 
 body::after {
@@ -74,16 +78,18 @@ h1, h2, h3, .display {
 
 .invite {
   position: relative;
-  max-width: 540px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 460px;
+  flex: 0 0 auto;
   background: var(--cream);
   padding: 0;
+  z-index: 2;
+  box-shadow: 0 0 120px rgba(0,0,0,0.7), 0 0 0 1px rgba(184,134,63,0.25);
 }
 
 @media (min-width: 720px) {
   .invite {
-    margin: 0 auto;
-    box-shadow: 0 30px 90px rgba(58, 36, 24, 0.28);
+    box-shadow: 0 0 120px rgba(0,0,0,0.8), 0 0 0 1px rgba(184,134,63,0.3), 0 30px 90px rgba(58,36,24,0.5);
   }
 }
 
@@ -108,7 +114,7 @@ h1, h2, h3, .display {
 .slide-frame {
   position: relative;
   width: 100%;
-  max-width: 540px;
+  max-width: 100%;
   aspect-ratio: 1080 / 1920;
   margin: 0 auto;
   overflow: hidden;
@@ -131,15 +137,15 @@ h1, h2, h3, .display {
    drift on their background -- event sections keep bg locked in place so
    the scratch rectangle never drifts out of alignment with the art */
 .section-bg.parallax-bg {
-  inset: -8%;
-  width: 116%;
-  height: 116%;
+  inset: -3%;
+  width: 106%;
+  height: 106%;
   will-change: transform;
 }
 
 .hang-wrap {
   position: absolute;
-  top: -.5%;
+  top: -6.5%;
   left: 0;
   width: 100%;
   z-index: 2;
@@ -386,11 +392,10 @@ h1, h2, h3, .display {
 }
 
 .family-rsvp-wrap {
-  scale: .85;
   position: absolute;
-  top: 55%;
-  left: 55%;
-  transform: translate(-65%,-80%);
+  top: 11.5%;
+  left: 50%;
+  transform: translateX(-50%);
   width: 76%;
   max-width: 410px;
   z-index: 3;
@@ -537,15 +542,6 @@ h1, h2, h3, .display {
   margin: 1px 0 clamp(3px, 0.8vh, 6px);
 }
 
-.placeholder-note {
-  font-family: "Jost", sans-serif;
-  font-size: clamp(0.56rem, 1.5vw, 0.64rem);
-  font-style: italic;
-  color: #6B5142;
-  opacity: 0.75;
-  margin: 6px 0 0;
-}
-
 .timings-grid {
   display: flex;
   align-items: center;
@@ -688,7 +684,7 @@ h1, h2, h3, .display {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #7E5A2A;
-  margin: 0;
+  margin: 10px;
 }
 
 .signoff-family {
@@ -697,7 +693,7 @@ h1, h2, h3, .display {
   font-size: clamp(0.85rem, 2.4vw, 0.98rem);
   font-weight: 600;
   color: #4A0E1A;
-  margin: 1px 0 0;
+  margin: 15px 0 0;
 }
 
 /* ---------- Fixed UI Chrome (Audio Pill, Fullscreen & Nav) ---------- */
@@ -820,7 +816,7 @@ body.music-playing .audio-bars .bar-3 {
   display: none;
 }
 
-@media (min-width: 720px) {
+@media (min-width: 1024px) and (orientation: landscape) {
   .progress-nav {
     display: flex;
     flex-direction: column;
@@ -1132,4 +1128,303 @@ body.music-playing .audio-bars .bar-3 {
     image-rendering: -webkit-optimize-contrast;
   }
 }
+
+
+/* ================================================================
+   FULL-SCREEN PAGE LAYOUT  —  side panels + centred card
+   ================================================================ */
+
+/* Default / Mobile: No side panels. Card occupies full width. */
+.page-layout {
+  display: block;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+/* Side panels are strictly HIDDEN by default on mobile / touch / portrait */
+.side-panel {
+  display: none !important;
+}
+
+/* Rich dark textured background */
+.panel-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(184,134,63,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 100%, rgba(184,134,63,0.10) 0%, transparent 60%),
+    linear-gradient(170deg, #1a0f06 0%, #2d1a0e 40%, #1e1108 70%, #130c05 100%);
+  z-index: 0;
+}
+
+/* Subtle repeating tile pattern */
+.panel-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><path d='M30 0 L60 30 L30 60 L0 30 Z' fill='none' stroke='%23b8863f' stroke-width='0.6'/><circle cx='30' cy='30' r='4' fill='none' stroke='%23b8863f' stroke-width='0.5'/></svg>");
+  background-size: 60px 60px;
+}
+
+/* Gold hairline border toward the card */
+.side-panel--left::after,
+.side-panel--right::before {
+  content: '';
+  position: absolute;
+  top: 3%;
+  bottom: 3%;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(184,134,63,0.6) 15%,
+    rgba(184,134,63,0.9) 50%,
+    rgba(184,134,63,0.6) 85%,
+    transparent 100%
+  );
+  z-index: 10;
+}
+.side-panel--left::after  { right: 0; }
+.side-panel--right::before { left: 0; }
+
+/* ---- Panel content wrapper (centres all text & ornaments) ---- */
+.panel-content {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding: 5vh 1.8vw;
+  gap: 0;
+}
+
+/* ---- Corner ornament (SVG lotuses / mandalas) ---- */
+.panel-ornament {
+  width: min(80px, 12vw);
+  height: min(80px, 12vw);
+  flex-shrink: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'><g stroke='%23b8863f' fill='none' stroke-width='0.9' opacity='0.75'><circle cx='40' cy='40' r='36'/><circle cx='40' cy='40' r='24'/><circle cx='40' cy='40' r='12'/><circle cx='40' cy='40' r='5'/><line x1='40' y1='4' x2='40' y2='76'/><line x1='4' y1='40' x2='76' y2='40'/><line x1='14.7' y1='14.7' x2='65.3' y2='65.3'/><line x1='65.3' y1='14.7' x2='14.7' y2='65.3'/><path d='M40 4 Q50 14 40 24 Q30 14 40 4Z' fill='rgba(184,134,63,0.12)'/><path d='M40 76 Q50 66 40 56 Q30 66 40 76Z' fill='rgba(184,134,63,0.12)'/><path d='M4 40 Q14 50 24 40 Q14 30 4 40Z' fill='rgba(184,134,63,0.12)'/><path d='M76 40 Q66 50 56 40 Q66 30 76 40Z' fill='rgba(184,134,63,0.12)'/></g></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: ornament-spin 30s linear infinite;
+}
+.panel-ornament--bottom { animation-direction: reverse; }
+
+@keyframes ornament-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ---- Central text block ---- */
+.panel-text-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(8px, 1.4vh, 18px);
+  padding: 0 4%;
+  text-align: center;
+}
+
+/* Sanskrit heading */
+.panel-script {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(0.9rem, 1.6vw, 1.5rem);
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(184,134,63,0.4);
+}
+
+/* Gold divider */
+.panel-divider {
+  width: min(50px, 8vw);
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(184,134,63,0.85), transparent);
+}
+
+/* Name labels */
+.panel-label {
+  font-family: "Cinzel", serif;
+  font-size: clamp(0.95rem, 1.7vw, 1.8rem);
+  font-weight: 700;
+  color: #f0d9a8;
+  letter-spacing: 0.06em;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.panel-label-sm {
+  font-family: "Jost", sans-serif;
+  font-size: clamp(0.65rem, 1.1vw, 1rem);
+  font-weight: 500;
+  color: rgba(240,217,168,0.78);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* "weds" italics */
+.panel-amp {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(0.75rem, 1.3vw, 1.2rem);
+  color: rgba(184,134,63,0.85);
+  margin: 0;
+}
+
+/* Place name */
+.panel-place {
+  font-family: "Cinzel", serif;
+  font-size: clamp(1.1rem, 2vw, 2rem);
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-shadow: 0 0 24px rgba(184,134,63,0.35);
+}
+
+/* Date / tagline */
+.panel-date {
+  font-family: "Jost", sans-serif;
+  font-size: clamp(0.55rem, 0.95vw, 0.82rem);
+  font-weight: 500;
+  color: rgba(240,217,168,0.6);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ---- Botanical vine overlays ---- */
+.panel-vines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.18;
+  background-repeat: no-repeat;
+}
+
+.panel-vines--left {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 800' preserveAspectRatio='xMidYMid meet'><g stroke='%23b8863f' fill='none' stroke-width='1.2'><path d='M100 800 C100 700 60 650 80 550 C100 450 140 400 120 300 C100 200 60 150 100 0'/><path d='M80 700 Q40 680 30 640'/><path d='M90 620 Q50 600 30 560'/><path d='M110 500 Q150 480 160 440'/><path d='M100 400 Q60 380 40 340'/><path d='M115 280 Q155 260 165 220'/><path d='M95 180 Q55 160 45 120'/></g><g fill='rgba(184,134,63,0.5)' stroke='none'><ellipse cx='28' cy='635' rx='8' ry='5' transform='rotate(-30 28 635)'/><ellipse cx='28' cy='555' rx='7' ry='4' transform='rotate(-20 28 555)'/><ellipse cx='162' cy='435' rx='8' ry='5' transform='rotate(25 162 435)'/><ellipse cx='38' cy='335' rx='7' ry='4' transform='rotate(-15 38 335)'/><ellipse cx='167' cy='215' rx='8' ry='5' transform='rotate(30 167 215)'/><ellipse cx='43' cy='115' rx='7' ry='4' transform='rotate(-25 43 115)'/></g></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 800'><g stroke='%23c49a52' fill='none' stroke-width='0.7' opacity='0.5'><path d='M40 800 C50 700 20 640 40 540 C60 440 90 400 70 300 C50 200 20 150 50 0'/></g></svg>");
+  background-size: 80% 100%, 50% 100%;
+  background-position: center center, 10% center;
+}
+
+.panel-vines--right {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 800' preserveAspectRatio='xMidYMid meet'><g stroke='%23b8863f' fill='none' stroke-width='1.2'><path d='M100 0 C100 100 140 150 120 250 C100 350 60 400 80 500 C100 600 140 650 100 800'/><path d='M120 100 Q160 120 170 160'/><path d='M110 230 Q150 250 170 290'/><path d='M90 370 Q50 390 40 430'/><path d='M100 470 Q140 490 160 530'/><path d='M85 610 Q45 630 35 670'/><path d='M105 700 Q145 720 155 760'/></g><g fill='rgba(184,134,63,0.5)' stroke='none'><ellipse cx='172' cy='165' rx='8' ry='5' transform='rotate(30 172 165)'/><ellipse cx='172' cy='295' rx='7' ry='4' transform='rotate(20 172 295)'/><ellipse cx='38' cy='435' rx='8' ry='5' transform='rotate(-25 38 435)'/><ellipse cx='162' cy='535' rx='7' ry='4' transform='rotate(15 162 535)'/><ellipse cx='33' cy='675' rx='8' ry='5' transform='rotate(-30 33 675)'/><ellipse cx='157' cy='765' rx='7' ry='4' transform='rotate(25 157 765)'/></g></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 800'><g stroke='%23c49a52' fill='none' stroke-width='0.7' opacity='0.5'><path d='M160 0 C150 100 180 160 160 260 C140 360 110 400 130 500 C150 600 180 650 150 800'/></g></svg>");
+  background-size: 80% 100%, 50% 100%;
+  background-position: center center, 90% center;
+}
+
+/* ================================================================
+   WINDOWS DESKTOP / LAPTOP BROWSER ONLY
+   (Widescreen landscape displays >= 1024px)
+   ================================================================ */
+@media (min-width: 1024px) and (orientation: landscape) {
+  .page-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .side-panel {
+    display: flex !important;
+    flex: 1 1 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: var(--app-height);
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+    min-width: 140px;
+  }
+
+  .invite {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 0 120px rgba(0,0,0,0.8), 0 0 0 1px rgba(184,134,63,0.3), 0 30px 90px rgba(58,36,24,0.5);
+  }
+}
+
+/* Ultra-wide / 1080p+ Windows displays */
+@media (min-width: 1440px) and (orientation: landscape) {
+  .invite {
+    max-width: 520px;
+  }
+}
+
+/* Explicit Mobile / Tablet View Overrides: strictly no side decoration */
+@media (max-width: 1023px), (orientation: portrait) {
+  .page-layout {
+    display: block !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  .side-panel {
+    display: none !important;
+  }
+
+  .invite {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    margin: 0 auto !important;
+  }
+
+  .slide-frame {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .progress-nav {
+    display: none !important;
+  }
+}
+
+/* JavaScript device class overrides */
+html.is-mobile .side-panel,
+body.is-mobile .side-panel {
+  display: none !important;
+}
+
+html.is-mobile .page-layout,
+body.is-mobile .page-layout {
+  display: block !important;
+}
+
+html.is-mobile .invite,
+body.is-mobile .invite {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-shadow: none !important;
+}
+
+html.is-mobile .progress-nav,
+body.is-mobile .progress-nav {
+  display: none !important;
+}
+
+
+
+
+
 
