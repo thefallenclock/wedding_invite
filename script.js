@@ -56,8 +56,12 @@ function updateParallax() {
     const bgMoves  = bg && bg.classList.contains('parallax-bg');
 
     if (!reduceMotion) {
-      if (bgMoves) bg.style.transform   = `translateY(${clamped * -18}px)`;
-      if (hang)    hang.style.transform = `translateY(${clamped *  3}px)`;
+      // Bumped noticeably higher than the first pass — this should read
+      // clearly as the slide scrolls, not just on close inspection.
+      // Buffer sized in CSS (.section-bg.parallax-bg: 116%/-8% inset)
+      // to comfortably cover this amplitude with room to spare.
+      if (bgMoves) bg.style.transform   = `translateY(${clamped * -42}px)`;
+      if (hang)    hang.style.transform = `translateY(${clamped *  24}px)`;
     }
 
     const fade = 1 - Math.min(1, Math.abs(clamped) * fadeRate);
