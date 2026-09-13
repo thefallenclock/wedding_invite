@@ -131,9 +131,9 @@ h1, h2, h3, .display {
    drift on their background -- event sections keep bg locked in place so
    the scratch rectangle never drifts out of alignment with the art */
 .section-bg.parallax-bg {
-  inset: -3%;
-  width: 106%;
-  height: 106%;
+  inset: -8%;
+  width: 116%;
+  height: 116%;
   will-change: transform;
 }
 
