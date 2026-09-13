@@ -512,15 +512,15 @@ function showToast(msg) {
 
 if (btnCopyAddress) {
   btnCopyAddress.addEventListener('click', () => {
-    const venueAddress = 'Courtyard by Marriott, Fatehabad Road, Tajganj, Agra, Uttar Pradesh 282001';
+    const venueAddress = 'Courtyard by Marriott, Fatehabad Road, Tajganj, Agra, Uttar Pradesh 282001 (Haldi venue — wedding venue TBC)';
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(venueAddress).then(() => {
-        showToast('✓ Venue address copied to clipboard!');
+        showToast('✓ Haldi venue address copied!');
       }).catch(() => {
-        showToast('📍 Courtyard by Marriott, Agra');
+        showToast('📍 Courtyard by Marriott, Agra (Haldi venue)');
       });
     } else {
-      showToast('📍 Courtyard by Marriott, Agra');
+      showToast('📍 Courtyard by Marriott, Agra (Haldi venue)');
     }
   });
 }
