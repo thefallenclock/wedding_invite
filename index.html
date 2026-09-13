@@ -68,6 +68,28 @@
     <button data-target="rsvp"        aria-label="RSVP and venue location section" data-name="Venue"></button>
   </nav>
 
+  <!-- Full-page layout: side-panels + centred card -->
+  <div class="page-layout">
+
+    <!-- Left decorative panel -->
+    <aside class="side-panel side-panel--left" aria-hidden="true">
+      <div class="panel-bg"></div>
+      <div class="panel-content">
+        <div class="panel-ornament panel-ornament--top"></div>
+        <div class="panel-text-block">
+          <p class="panel-script">शुभ विवाह</p>
+          <div class="panel-divider"></div>
+          <p class="panel-label">Rahul</p>
+          <p class="panel-amp">weds</p>
+          <p class="panel-label">Vibhuti</p>
+          <div class="panel-divider"></div>
+          <p class="panel-date">21st &amp; 22nd Oct 2026</p>
+        </div>
+        <div class="panel-ornament panel-ornament--bottom"></div>
+        <div class="panel-vines panel-vines--left"></div>
+      </div>
+    </aside>
+
   <div class="invite">
 
     <!-- 1. LANDING GATE -->
@@ -92,7 +114,7 @@
     <!-- 2. NAMES / BLESSINGS (No fade) -->
     <section class="section" id="names" data-fade-target="none">
       <div class="slide-frame">
-        <div class="section-bg parallax-bg" style="background-image:url('assets/bg-names.jpg')"></div>
+        <div class="section-bg" style="background-image:url('assets/bg-names.jpg')"></div>
         <div class="hang-wrap"><img class="hang" src="assets/hang-names.png" alt="" /></div>
       </div>
     </section>
@@ -100,7 +122,7 @@
     <!-- 3. SANGEET -->
     <section class="section event-section" id="sangeet">
       <div class="slide-frame">
-        <div class="section-bg parallax-bg" style="background-image:url('assets/bg-sangeet.jpg')"></div>
+        <div class="section-bg" style="background-image:url('assets/bg-sangeet.jpg')"></div>
         <div class="hang-wrap"><img class="hang" src="assets/hang-sangeet.png" alt="" /></div>
         <div class="scratch-wrap">
           <div class="reveal-card"><img src="assets/details-sangeet.png" alt="Sangeet date, time and venue" /></div>
@@ -114,7 +136,7 @@
     <!-- 4. HALDI -->
     <section class="section event-section" id="haldi">
       <div class="slide-frame">
-        <div class="section-bg parallax-bg" style="background-image:url('assets/bg-haldi.jpg')"></div>
+        <div class="section-bg" style="background-image:url('assets/bg-haldi.jpg')"></div>
         <div class="hang-wrap"><img class="hang" src="assets/hang-haldi.png" alt="" /></div>
         <div class="scratch-wrap">
           <div class="reveal-card"><img src="assets/details-haldi.png" alt="Haldi date, time and venue" /></div>
@@ -129,7 +151,7 @@
     <!-- 5. WEDDING -->
     <section class="section event-section" id="wedding">
       <div class="slide-frame">
-        <div class="section-bg parallax-bg" style="background-image:url('assets/bg-wedding.jpg')"></div>
+        <div class="section-bg" style="background-image:url('assets/bg-wedding.jpg')"></div>
         <div class="hang-wrap"><img class="hang" src="assets/hang-wedding.png" alt="" /></div>
         <div class="scratch-wrap">
           <div class="reveal-card"><img src="assets/details-wedding.png" alt="Wedding date, time and venue" /></div>
@@ -143,7 +165,7 @@
     <!-- 6. RSVP / WITH BEST COMPLIMENTS -->
     <section class="section" id="compliments" data-fade-target="none">
       <div class="slide-frame">
-        <div class="section-bg parallax-bg" style="background-image:url('assets/bg-landing.jpg')"></div>
+        <div class="section-bg" style="background-image:url('assets/bg-landing.jpg')"></div>
         <div class="family-rsvp-wrap">
           <img src="assets/details-rsvp-family.png" alt="RSVP Rachit - Malika, Awaiting your presence Baby Rushika, With best compliments: Sonia Late Sunil Gupta, Rashim Vinay Khanna, Shilpa Deepak Mahajan" class="family-rsvp-img" />
         </div>
@@ -172,29 +194,29 @@
           <div class="rsvp-grid">
             <!-- Venue & Timings Card -->
             <div class="rsvp-card venue-details-card">
-              <div class="card-pill">Wedding Day Schedule</div>
-              <h3 class="venue-title">Venue to be confirmed</h3>
-              <p class="venue-location">We'll share the exact address as soon as it's finalised</p>
+              <div class="card-pill">Wedding Venue &amp; Schedule</div>
+              <h3 class="venue-title">Courtyard by Marriott</h3>
+              <p class="venue-location">Fatehabad Road, Tajganj, Agra</p>
               
               <div class="timings-grid">
                 <div class="timing-block">
-                  <span class="time-label">Sehrabandi</span>
-                  <strong class="time-val">4:30 PM</strong>
-                </div>
-                <div class="timing-sep" aria-hidden="true"></div>
-                <div class="timing-block">
-                  <span class="time-label">Baraat &amp; Ghurchadi</span>
-                  <strong class="time-val">5:00 PM</strong>
-                </div>
-                <div class="timing-sep" aria-hidden="true"></div>
-                <div class="timing-block">
-                  <span class="time-label">Jaimala &amp; Phere</span>
+                  <span class="time-label">Baraat</span>
                   <strong class="time-val">7:00 PM</strong>
+                </div>
+                <div class="timing-sep" aria-hidden="true"></div>
+                <div class="timing-block">
+                  <span class="time-label">Varmala</span>
+                  <strong class="time-val">8:30 PM</strong>
+                </div>
+                <div class="timing-sep" aria-hidden="true"></div>
+                <div class="timing-block">
+                  <span class="time-label">Pheras</span>
+                  <strong class="time-val">Midnight</strong>
                 </div>
               </div>
 
               <div class="card-actions">
-                <a href="https://maps.google.com/maps?q=Courtyard+by+Marriott+Agra" target="_blank" rel="noopener noreferrer" class="action-btn action-map-btn" aria-label="Open Courtyard by Marriott in Google Maps (Haldi venue shown provisionally)">
+                <a href="https://maps.google.com/maps?q=Courtyard+by+Marriott+Agra" target="_blank" rel="noopener noreferrer" class="action-btn action-map-btn" aria-label="Open Courtyard by Marriott in Google Maps">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
                   <span>Open Maps</span>
                 </a>
@@ -203,14 +225,13 @@
                   <span id="copyBtnLabel">Copy Address</span>
                 </button>
               </div>
-              <p class="placeholder-note">Map below is pinned to the Haldi venue for now.</p>
             </div>
 
             <!-- Framed Minimal Map Window -->
             <div class="rsvp-card map-frame-card">
               <div class="map-tag">
                 <span class="tag-pulse" aria-hidden="true"></span>
-                <span>Haldi venue &mdash; provisional</span>
+                <span>Courtyard Agra</span>
               </div>
               <iframe class="map-iframe-modern" loading="lazy" title="Courtyard by Marriott Agra Google Maps Location"
                 src="https://maps.google.com/maps?q=Courtyard+by+Marriott+Agra&t=&z=15&ie=UTF8&iwloc=&output=embed">
@@ -220,13 +241,34 @@
 
           <footer class="rsvp-signoff">
             <p class="signoff-heading">With Love &amp; Warm Regards</p>
-            <p class="signoff-family">Mahajan &amp; Gupta Family</p>
+            <p class="signoff-family">Mahajan &amp; Gupta Families</p>
           </footer>
         </div>
       </div>
     </section>
 
   </div><!-- /.invite -->
+
+    <!-- Right decorative panel -->
+    <aside class="side-panel side-panel--right" aria-hidden="true">
+      <div class="panel-bg"></div>
+      <div class="panel-content">
+        <div class="panel-ornament panel-ornament--top"></div>
+        <div class="panel-text-block">
+          <p class="panel-script">मंगलमय</p>
+          <div class="panel-divider"></div>
+          <p class="panel-label-sm">Courtyard</p>
+          <p class="panel-label-sm">by Marriott</p>
+          <p class="panel-place">Agra</p>
+          <div class="panel-divider"></div>
+          <p class="panel-date">With Love &amp; Blessings</p>
+        </div>
+        <div class="panel-ornament panel-ornament--bottom"></div>
+        <div class="panel-vines panel-vines--right"></div>
+      </div>
+    </aside>
+
+  </div><!-- /.page-layout -->
 
   <script src="script.js"></script>
 </body>
