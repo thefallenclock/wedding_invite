@@ -61,8 +61,8 @@
   <!-- Right Side Progress Navigation Dots (Desktop) -->
   <nav class="progress-nav" id="progress-nav" aria-label="Invitation sections">
     <button data-target="names"   aria-label="Family blessings and names section" data-name="Names"></button>
-    <button data-target="haldi"   aria-label="Haldi ceremony section" data-name="Haldi"></button>
     <button data-target="sangeet" aria-label="Sangeet ceremony section" data-name="Sangeet"></button>
+    <button data-target="haldi"   aria-label="Haldi ceremony section" data-name="Haldi"></button>
     <button data-target="wedding" aria-label="Wedding pheras section" data-name="Wedding"></button>
     <button data-target="rsvp"    aria-label="RSVP and venue location section" data-name="RSVP"></button>
   </nav>
@@ -96,7 +96,21 @@
       </div>
     </section>
 
-    <!-- 3. HALDI -->
+    <!-- 3. SANGEET -->
+    <section class="section event-section" id="sangeet">
+      <div class="slide-frame">
+        <div class="section-bg" style="background-image:url('assets/bg-sangeet.jpg')"></div>
+        <div class="hang-wrap"><img class="hang" src="assets/hang-sangeet.png" alt="" /></div>
+        <div class="scratch-wrap">
+          <div class="reveal-card"><img src="assets/details-sangeet.png" alt="Sangeet date, time and venue" /></div>
+          <canvas class="scratch-canvas"></canvas>
+          <div class="scratch-hint">scratch to reveal details</div>
+        </div>
+        <button class="scratch-reveal-btn" aria-label="Reveal Sangeet details without scratching">✨ Reveal Details</button>
+      </div>
+    </section>
+
+    <!-- 4. HALDI -->
     <section class="section event-section" id="haldi">
       <div class="slide-frame">
         <div class="section-bg" style="background-image:url('assets/bg-haldi.jpg')"></div>
@@ -108,20 +122,6 @@
         </div>
         <!-- Accessible fallback -->
         <button class="scratch-reveal-btn" aria-label="Reveal Haldi details without scratching">✨ Reveal Details</button>
-      </div>
-    </section>
-
-    <!-- 4. SANGEET -->
-    <section class="section event-section" id="sangeet">
-      <div class="slide-frame">
-        <div class="section-bg" style="background-image:url('assets/bg-sangeet.jpg')"></div>
-        <div class="hang-wrap"><img class="hang" src="assets/hang-sangeet.png" alt="" /></div>
-        <div class="scratch-wrap">
-          <div class="reveal-card"><img src="assets/details-sangeet.png" alt="Sangeet date, time and venue" /></div>
-          <canvas class="scratch-canvas"></canvas>
-          <div class="scratch-hint">scratch to reveal details</div>
-        </div>
-        <button class="scratch-reveal-btn" aria-label="Reveal Sangeet details without scratching">✨ Reveal Details</button>
       </div>
     </section>
 
