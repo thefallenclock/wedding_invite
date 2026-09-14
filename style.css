@@ -392,10 +392,11 @@ h1, h2, h3, .display {
 }
 
 .family-rsvp-wrap {
+  scale: .85;
   position: absolute;
-  top: 11.5%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 55%;
+  left: 55%;
+  transform: translate(-65%, -80%);
   width: 76%;
   max-width: 410px;
   z-index: 3;
