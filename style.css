@@ -396,7 +396,7 @@ h1, h2, h3, .display {
   position: absolute;
   top: 55%;
   left: 55%;
-  transform: translate(-65%, -80%);
+  transform: translate(-65%, -100%);
   width: 76%;
   max-width: 410px;
   z-index: 3;
