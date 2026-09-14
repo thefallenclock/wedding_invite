@@ -472,6 +472,16 @@ h1, h2, h3, .display {
   z-index: 3;
 }
 
+.phera-note {
+  font-family: "Jost", sans-serif;
+  font-style: italic;
+  font-size: clamp(0.8rem, 1.4vw, 0.6rem);
+  letter-spacing: 0.03em;
+  color: #7E5A2A;
+  margin: 10px 0 clamp(3px, 0.8vh, 6px);
+  text-align: center;
+}
+
 .rsvp-header {
   text-align: center;
   margin-bottom: clamp(3px, 1vh, 7px);
