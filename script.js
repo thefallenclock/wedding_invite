@@ -675,3 +675,68 @@ updateNav();
   window.addEventListener('orientationchange', checkDeviceMode, { passive: true });
   checkDeviceMode();
 }());
+
+// ---------- Wedding Countdown Timer ----------
+(function () {
+  // Wedding starts 22 Oct 2026, 7:00 PM IST (UTC+5:30)
+  const WEDDING = new Date('2026-10-22T19:00:00+05:30').getTime();
+
+  const elDays  = document.getElementById('cd-days');
+  const elHours = document.getElementById('cd-hours');
+  const elMins  = document.getElementById('cd-mins');
+  const elSecs  = document.getElementById('cd-secs');
+  const wrapper = document.getElementById('wedding-countdown');
+
+  if (!elDays || !elHours || !elMins || !elSecs) return;
+
+  function pad(n) { return String(Math.max(0, n)).padStart(2, '0'); }
+
+  function flashTick(el) {
+    el.classList.remove('tick');
+    // Force reflow so the class removal is registered
+    void el.offsetWidth;
+    el.classList.add('tick');
+    setTimeout(() => el.classList.remove('tick'), 300);
+  }
+
+  let prevSecs = -1;
+
+  function tick() {
+    const now  = Date.now();
+    const diff = WEDDING - now;
+
+    if (diff <= 0) {
+      elDays.textContent  = '00';
+      elHours.textContent = '00';
+      elMins.textContent  = '00';
+      elSecs.textContent  = '00';
+      wrapper.classList.add('arrived');
+      document.querySelector('.countdown-footer').textContent =
+        '🎉 The Big Day is HERE — Congratulations Rahul & Vibhuti! 🎉';
+      return; // stop ticking
+    }
+
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  /   60000);
+    const secs  = Math.floor((diff %   60000)  /    1000);
+
+    elDays.textContent  = pad(days);
+    elHours.textContent = pad(hours);
+    elMins.textContent  = pad(mins);
+    elSecs.textContent  = pad(secs);
+
+    // Flash the seconds digit (and cascade to higher units when they change)
+    if (secs !== prevSecs) {
+      flashTick(elSecs);
+      if (secs === 59) flashTick(elMins);
+      if (secs === 59 && mins === 59) flashTick(elHours);
+      if (secs === 59 && mins === 59 && hours === 23) flashTick(elDays);
+      prevSecs = secs;
+    }
+
+    setTimeout(tick, 1000 - (now % 1000)); // align to wall-clock seconds
+  }
+
+  tick();
+}());
